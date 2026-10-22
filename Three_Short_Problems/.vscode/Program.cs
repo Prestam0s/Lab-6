@@ -6,8 +6,6 @@
 * Description: Gives menu of three small working programs.
 */
 
-using Microsoft.VisualBasic;
-
 Random rng = new Random(4000);
 int userChoice = 0;
 //do while: runs once automatically and keeps the program active until user enters the exit option
@@ -62,14 +60,14 @@ do
         } //Dice Roller
         if (userChoice == 2 || userChoice == 4)
         {
-        
+            
             int rollNum = 1;
             char keepRolling = 'y';
             int userWins = 0;
             System.Console.WriteLine("\n=== Dice Table ===");
 
             //while loop: to allow user to keep rolling until satisfied
-            while (keepRolling == 'y')
+            while (keepRolling == 'y' || keepRolling != 'n')
             {
                 int dieOne = rng.Next(1,7);
                 int dieTwo = rng.Next(1,7);
@@ -89,23 +87,29 @@ do
                     System.Console.WriteLine("Winner!");
                     userWins += 1;
                 }
-                System.Console.WriteLine("\nWould you like to roll again? y/n:");
-                keepRolling = Convert.ToChar(Console.ReadLine().Trim().ToLower());
-                if (keepRolling != 'y' && keepRolling != 'n')
+                //do while to run initially then continue to loop if user does not enter a valid option
+                do
                 {
-                    System.Console.WriteLine("Please enter 'y' or 'n' only");
-                }
-                rollNum += 1;
-                if (keepRolling == 'n')
-                {
+                    System.Console.WriteLine("\nWould you like to roll again? y/n:");
+                    keepRolling = Convert.ToChar(Console.ReadLine().Trim().ToLower());
+                    if (keepRolling != 'y' && keepRolling != 'n')
+                    {
+                        System.Console.WriteLine("Please enter 'y' or 'n' only");
+                    }
+                    if (keepRolling == 'n')
+                    {
                     System.Console.WriteLine($"You rolled {rollNum} times and won {userWins} times!");
-                }
-            }
+                    }
+                }while(keepRolling != 'y' && keepRolling != 'n');  
+                rollNum += 1;  
+            }   
         }
+        //Score Report
         if (userChoice == 3 || userChoice == 4)
         {
+            int[] scores = new int[5];
             System.Console.WriteLine("\n=== Score Report ===");
-            System.Console.Write("\nPlease Enter your score: ");
+            System.Console.Write($"\nPlease input score{i + 1}: ");
         }
 }while (userChoice !=5);
 
