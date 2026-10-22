@@ -8,10 +8,12 @@
 
 Random rng = new Random(4000);
 int userChoice = 0;
+
 //do while: runs once automatically and keeps the program active until user enters the exit option
 do
 {
     userChoice = 0;
+
     //While: used to validate inputs.  reprints instructions until user enters a valid input
     while (userChoice < 1 || userChoice > 5)
     {
@@ -23,7 +25,8 @@ do
         {
             System.Console.WriteLine("\nYou have entered an invalid option. Please try again");
         }
-    }   //Grade Checker
+    }   
+        //Grade Checker
         if (userChoice == 1 || userChoice == 4)
         {   
             double gradePercent = -1;
@@ -57,6 +60,7 @@ do
                     System.Console.WriteLine("Your grade is an F");
                 }
             }
+
         } //Dice Roller
         if (userChoice == 2 || userChoice == 4)
         {
@@ -87,10 +91,11 @@ do
                     System.Console.WriteLine("Winner!");
                     userWins += 1;
                 }
+
                 //do while to run initially then continue to loop if user does not enter a valid option
                 do
                 {
-                    System.Console.WriteLine("\nWould you like to roll again? y/n:");
+                    System.Console.WriteLine("\nWould you like to roll again? y/n: ");
                     keepRolling = Convert.ToChar(Console.ReadLine().Trim().ToLower());
                     if (keepRolling != 'y' && keepRolling != 'n')
                     {
@@ -104,12 +109,42 @@ do
                 rollNum += 1;  
             }   
         }
+
         //Score Report
         if (userChoice == 3 || userChoice == 4)
         {
+            int total = 0;
             int[] scores = new int[5];
+            int passingScores = 0;
+            int highestScore = 0;
+            //for loop beacuse it tracks position to put each score in their own spot in the array.
+            for (int i = 0; i < scores.Length; i++)
+            {
+                System.Console.Write($"\nPlease input score {i + 1}: ");
+                scores[i] = Convert.ToInt32(Console.ReadLine().Trim());
+                
+            }
+
+            //foreach to itterate through the array cleanly without the need to track position.
+            foreach (int score in scores)
+            {
+                highestScore = Math.Max(highestScore, score);
+                total += score;
+                if (score >= 60)
+                {
+                    passingScores += 1;
+                } 
+
+            }
             System.Console.WriteLine("\n=== Score Report ===");
-            System.Console.Write($"\nPlease input score{i + 1}: ");
+
+            //for loop because it needs to print the scores in order
+            for (int i = 0; i < scores.Length; i++)
+            {
+                System.Console.WriteLine($"Score {i + 1}: {scores[i]}");
+            }
+            
+            
         }
 }while (userChoice !=5);
 
